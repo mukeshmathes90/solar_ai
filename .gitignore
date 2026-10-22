@@ -19,8 +19,8 @@ venv/
 **/credentials.h
 
 # --- local archives / dumps -------------------------------------------------
-# microgrid-ai.zip is a redundant copy of microgrid-ai/ - the folder is tracked.
-microgrid-ai.zip
+# *.zip is a redundant copy of microgrid-ai/ - the folder itself is tracked.
+*.zip
 
 # --- backups ----------------------------------------------------------------
 backups/
