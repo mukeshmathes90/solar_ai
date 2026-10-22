@@ -17,14 +17,23 @@ operating condition, anomaly), and a dark-themed real-time dashboard.
 
 ## Quick start
 
+The repository ships **ready to run**: the trained models, the seeded dataset,
+the analysis figures and the demo database are all committed. A fresh clone
+needs no training step.
+
 ```bat
-cd microgrid-ai
-install.bat        :: install dependencies, generate dataset, train models
-run.bat            :: start the Flask server (http://127.0.0.1:5000)
+git clone https://github.com/mukeshmathes90/solar_ai.git
+cd solar_ai\microgrid-ai
+python -m pip install -r requirements.txt
+run.bat            :: starts the server on http://127.0.0.1:5000
 ```
 
-Then open <http://127.0.0.1:5000/> and press **Start demo feed** to see live
-simulated readings flow through the whole pipeline.
+Then open <http://127.0.0.1:5000/> - the dashboard is live, the models are
+loaded and the demo feed starts automatically.
+
+`install.bat` is only needed if you want to rebuild everything from scratch
+(fresh dataset, retrain, re-render the figures). It is equivalent to
+`python scripts/run_pipeline.py`.
 
 ```bat
 cd microgrid-ai
@@ -36,9 +45,14 @@ python -m pytest   :: run the test suite
 - Models are trained on a **simulated** dataset; all simulated rows are tagged
   `data_origin = "simulated"` in the database and labelled as such on the
   dashboard. See the honesty note in `microgrid-ai/README.md`.
-- Generated artefacts (trained `*.joblib` models, the SQLite database, the
-  dataset CSV and the report figures) are git-ignored. Regenerate them with
-  `python scripts/run_pipeline.py`.
+- The committed artefacts are the exact ones the project was built with:
+  `ml/artifacts/*.joblib` (trained models), `ml/artifacts/metrics.json`
+  (held-out metrics), `data/dataset/microgrid_dataset.csv` (seed 42),
+  `reports/graphs/*.png` (the 14 dashboard figures) and
+  `data/db/microgrid.db` (demo history).
 - No credentials are committed. Copy `microgrid-ai/.env.example` to `.env` and
   `firmware/microgrid_node/credentials.example.h` to `credentials.h` for local
   secrets.
+- **Python version matters.** The pinned dependencies (`numpy==1.24.4`,
+  `pandas==2.0.3`, `scikit-learn==1.3.2`, `matplotlib==3.7.2`) have no wheels
+  for Python 3.12+. Use **Python 3.8 - 3.11** (3.11 recommended).

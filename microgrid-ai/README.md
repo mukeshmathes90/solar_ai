@@ -68,17 +68,24 @@ pipeline, so there is no cross-origin setup and no separate front-end build.
 
 ## 3. Quick start
 
+The trained models, the seeded dataset and the analysis figures are **committed
+to the repository**, so a fresh clone runs without any training step.
+
 ```bat
-:: 1. install dependencies, generate the dataset, train the models
-install.bat
+:: 1. install dependencies
+python -m pip install -r requirements.txt
 
 :: 2. start the server (opens the firewall, prints the hotspot address)
 run.bat
 ```
 
-Then open <http://127.0.0.1:5000/>. On a fresh database the dashboard starts
-empty; press **Start demo feed** (or call `POST /api/demo/tick`) to see live
-simulated readings flow through the whole pipeline.
+Then open <http://127.0.0.1:5000/>. The dashboard is live, the three models are
+already loaded, and the demo feed starts automatically - live simulated
+readings flow through the whole pipeline immediately.
+
+Use `install.bat` instead of step 1 only when you want to rebuild everything
+from scratch (regenerate the dataset, retrain the models, re-render the
+figures). It is equivalent to `python scripts/run_pipeline.py`.
 
 ## 4. Manual setup
 
