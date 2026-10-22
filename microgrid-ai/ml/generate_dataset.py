@@ -130,7 +130,7 @@ def generate(rows: int = 12000, seed: int = 42) -> pd.DataFrame:
 
     index = pd.date_range(START_TIMESTAMP, periods=rows, freq=SAMPLE_PERIOD)
     hour = index.hour.to_numpy() + index.minute.to_numpy() / 60.0
-    day_of_year = index.dayofyear.to_numpy()
+    day_of_year = index.day_of_year.to_numpy()
 
     # ------------------------------------------------------------------ #
     # Weather

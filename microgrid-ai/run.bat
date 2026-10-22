@@ -1,8 +1,10 @@
 @echo off
 REM ---------------------------------------------------------------------------
 REM  Microgrid AI platform - start the server
-REM  Trains the models on first run if the artifacts are missing, opens the
-REM  firewall for the hotspot, then serves the API + dashboard on port 5000.
+REM  Trains the models on first run if the artifacts are missing OR cannot be
+REM  used by the installed scikit-learn (model files are not portable across
+REM  major scikit-learn releases), opens the firewall for the hotspot, then
+REM  serves the API + dashboard on port 5000.
 REM ---------------------------------------------------------------------------
 setlocal
 cd /d "%~dp0"
@@ -17,11 +19,16 @@ if errorlevel 1 (
     exit /b 1
 )
 
-if not exist "ml\artifacts\generation_model.joblib" (
-    echo [setup] Model artifacts are missing - generating data and training ...
+REM Readiness probe: the models must be loadable AND produce sane
+REM probabilities, not merely exist on disk.
+%PY% -c "from backend.services.inference import SERVICE; import sys; sys.exit(0 if SERVICE.is_ready() else 1)" >nul 2>&1
+if errorlevel 1 (
+    echo [setup] Model artifacts are missing or incompatible with this Python - generating data and training ...
     %PY% -m ml.generate_dataset --rows 12000 --seed 42
     if errorlevel 1 goto :fail
     %PY% -m ml.train
+    if errorlevel 1 goto :fail
+    %PY% -m ml.evaluate
     if errorlevel 1 goto :fail
 )
 

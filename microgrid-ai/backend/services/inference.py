@@ -47,6 +47,22 @@ class ModelNotTrainedError(RuntimeError):
     """Raised when the dashboard asks for a prediction before training."""
 
 
+def _probe_features(feature_names: List[str]) -> np.ndarray:
+    """A neutral input row used to smoke-test freshly loaded estimators."""
+    row = np.zeros((1, len(feature_names)), dtype=float)
+    # Keep the probe inside the plausible range of the engineered features so
+    # the trees take a normal branch instead of an all-zero leaf.
+    for name, value in (("hour", 12.0), ("day_of_year", 180.0),
+                        ("solar_irradiance_wm2", 500.0), ("solar_voltage", 4.0),
+                        ("wind_voltage", 2.5), ("turbine_rpm", 100.0),
+                        ("temperature_c", 25.0), ("humidity_percent", 50.0),
+                        ("light_level_lux", 20000.0), ("solar_v_deficit", 0.0),
+                        ("wind_v_per_rpm", 0.025), ("lux_per_irradiance", 40.0)):
+        if name in feature_names:
+            row[0, feature_names.index(name)] = value
+    return row
+
+
 class InferenceService:
     """Thread-safe, lazily loaded wrapper around the three models."""
 
@@ -57,6 +73,7 @@ class InferenceService:
         self._feature_names: List[str] = []
         self._loaded_at: Optional[float] = None
         self._artifact_mtime: Optional[float] = None
+        self._failed_stamp: Optional[float] = None
         self._last_error: Optional[str] = None
 
     # ------------------------------------------------------------------ #
@@ -97,16 +114,76 @@ class InferenceService:
                     self._meta = {}
                 self._artifact_mtime = self._artifact_stamp()
                 self._loaded_at = time.time()
+                self._failed_stamp = None
                 self._last_error = None
+                self._check_artifacts_are_usable()
+            except ModelNotTrainedError:
+                self._models = {}
+                self._failed_stamp = self._artifact_stamp()
+                raise
             except Exception as exc:  # pragma: no cover - depends on artifact health
                 self._last_error = "%s: %s" % (type(exc).__name__, exc)
                 raise
 
+    def _check_artifacts_are_usable(self) -> None:
+        """Reject artifacts that this interpreter cannot actually score with.
+
+        scikit-learn model files are not portable across major releases.  A
+        ``.joblib`` written by 1.3.2 still *loads* under 1.9, but its
+        ``predict_proba`` then returns un-normalised counts instead of
+        probabilities, and 1.8 refuses to load it at all.  Both cases look
+        like a working model until the numbers are checked, so the estimators
+        are smoke-tested here and the artifacts are declared unusable when the
+        probabilities do not add up to 1.
+        """
+        features = _probe_features(self._feature_names)
+        try:
+            power = self._models["generation"].predict(features)
+            if not np.all(np.isfinite(power)):
+                raise ValueError("the generation model returned a non-finite value")
+            for key in ("condition", "anomaly"):
+                model = self._models[key]
+                proba = model.predict_proba(features)
+                if proba.shape[1] != len(model.classes_):
+                    raise ValueError(
+                        "%s model returned %d probability columns for %d classes"
+                        % (key, proba.shape[1], len(model.classes_)))
+                if not np.all(np.isfinite(proba)):
+                    raise ValueError("%s model returned a non-finite probability" % key)
+                if np.any(proba < -1e-9) or np.any(proba > 1.0 + 1e-9):
+                    raise ValueError(
+                        "%s model returned a probability outside 0..1 (max %.4f)"
+                        % (key, float(proba.max())))
+                if not np.allclose(proba.sum(axis=1), 1.0, atol=1e-6):
+                    raise ValueError(
+                        "%s model probabilities sum to %.4f instead of 1.0"
+                        % (key, float(proba.sum(axis=1)[0])))
+        except Exception as exc:
+            import sklearn
+
+            reason = "%s: %s" % (type(exc).__name__, exc)
+            self._last_error = reason
+            self._models = {}
+            raise ModelNotTrainedError(
+                "The model artifacts on disk cannot be used by the installed "
+                "scikit-learn %s (%s). This is a scikit-learn pickle-format "
+                "mismatch, not a broken project. Retrain the models for this "
+                "interpreter with `python -m ml.train` (run.bat does this for "
+                "you automatically)." % (sklearn.__version__, reason)
+            )
+
     def ensure_loaded(self) -> None:
         with self._lock:
             stamp = self._artifact_stamp()
-            if not self._models or (stamp and stamp != self._artifact_mtime):
-                self._load()
+            if self._models and (stamp is None or stamp == self._artifact_mtime):
+                return
+            if self._failed_stamp is not None and stamp == self._failed_stamp:
+                # The artifacts on disk are known to be unusable and have not
+                # changed since; do not re-read ~100 MB of pickles every call.
+                raise ModelNotTrainedError(self._last_error or (
+                    "The model artifacts on disk cannot be used by the "
+                    "installed scikit-learn. Run `python -m ml.train`."))
+            self._load()
 
     def is_ready(self) -> bool:
         try:

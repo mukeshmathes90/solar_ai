@@ -114,7 +114,7 @@ def engineer_features(frame: pd.DataFrame) -> pd.DataFrame:
     out = frame.copy()
     stamp = out["timestamp"]
     out["hour"] = stamp.dt.hour + stamp.dt.minute / 60.0
-    out["day_of_year"] = stamp.dt.dayofyear
+    out["day_of_year"] = stamp.dt.day_of_year
 
     irradiance = out["solar_irradiance_wm2"].astype(float)
     temperature = out["temperature_c"].astype(float)
