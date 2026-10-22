@@ -87,6 +87,30 @@ Use `install.bat` instead of step 1 only when you want to rebuild everything
 from scratch (regenerate the dataset, retrain the models, re-render the
 figures). It is equivalent to `python scripts/run_pipeline.py`.
 
+### Python version
+
+**Python 3.8 - 3.14** are supported. `requirements.txt` uses environment
+markers, so pip resolves the correct wheel set for whatever interpreter is
+running - no manual pinning needed.
+
+scikit-learn model files are not portable across major scikit-learn releases:
+the committed artifacts were trained with scikit-learn 1.3.x and, loaded under
+1.9 (Python 3.12+), would return un-normalised counts instead of
+probabilities. `run.bat` therefore probes the artifacts before starting and,
+on Python 3.12+, **retrains the models automatically on first start** (about
+two minutes). On Python 3.8 - 3.11 the committed artifacts are used as-is and
+the server starts instantly.
+
+If the models ever need to be rebuilt for the local interpreter:
+
+```bat
+python -m ml.train
+```
+
+`backend/services/inference.py` smoke-tests the loaded estimators, so a
+mismatch is reported as "models not ready" instead of silently returning
+wrong numbers.
+
 ## 4. Manual setup
 
 ```bat

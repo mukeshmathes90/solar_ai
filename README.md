@@ -40,6 +40,19 @@ cd microgrid-ai
 python -m pytest   :: run the test suite
 ```
 
+## Python version
+
+**Python 3.8 - 3.14** are supported. `requirements.txt` uses environment
+markers so pip picks the right wheel set for the interpreter it is running
+under.
+
+One caveat, handled automatically: scikit-learn model files are not portable
+across major scikit-learn releases. The committed artifacts were trained with
+scikit-learn 1.3.x, so on **Python 3.12+** (scikit-learn 1.9) `run.bat`
+detects that the shipped models cannot score reliably and **retrains them
+locally on first start** - about two minutes, no action needed. On Python
+3.8 - 3.11 the shipped artifacts are used as-is and start instantly.
+
 ## Notes
 
 - Models are trained on a **simulated** dataset; all simulated rows are tagged
@@ -53,6 +66,3 @@ python -m pytest   :: run the test suite
 - No credentials are committed. Copy `microgrid-ai/.env.example` to `.env` and
   `firmware/microgrid_node/credentials.example.h` to `credentials.h` for local
   secrets.
-- **Python version matters.** The pinned dependencies (`numpy==1.24.4`,
-  `pandas==2.0.3`, `scikit-learn==1.3.2`, `matplotlib==3.7.2`) have no wheels
-  for Python 3.12+. Use **Python 3.8 - 3.11** (3.11 recommended).
