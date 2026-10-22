@@ -66,3 +66,12 @@ locally on first start** - about two minutes, no action needed. On Python
 - No credentials are committed. Copy `microgrid-ai/.env.example` to `.env` and
   `firmware/microgrid_node/credentials.example.h` to `credentials.h` for local
   secrets.
+- **No ESP8266 connected? There is no backend error.** The app starts on the
+  built-in simulated feed (`demo_mode = 1`), so the dashboard is live
+  immediately with clearly-labelled `SIMULATED` readings. If the feed is
+  stopped and no node reports for 90 s, the UI shows an amber
+  *"Node is not currently reporting. Showing the last stored reading..."*
+  banner. The red **Backend error** banner only appears when an API call
+  actually fails (e.g. the server is not running).
+- The relay ships **disabled** (`relay_control_enabled = 0`). Automatic load
+  switching is never enabled by the shipped data.
