@@ -1,0 +1,57 @@
+{
+  "model_type_generation": "RandomForestRegressor",
+  "model_type_condition": "RandomForestClassifier",
+  "model_type_anomaly": "RandomForestClassifier",
+  "target_generation": "total_est_power_w",
+  "target_condition": "operating_condition",
+  "target_anomaly": "anomaly_label",
+  "feature_columns": [
+    "hour",
+    "day_of_year",
+    "solar_irradiance_wm2",
+    "solar_voltage",
+    "wind_voltage",
+    "turbine_rpm",
+    "temperature_c",
+    "humidity_percent",
+    "light_level_lux",
+    "solar_v_deficit",
+    "wind_v_per_rpm",
+    "lux_per_irradiance"
+  ],
+  "classes_condition": [
+    "fault",
+    "night_idle",
+    "normal",
+    "reduced_generation"
+  ],
+  "classes_anomaly": [
+    0,
+    1
+  ],
+  "model_version": "1.0.0",
+  "n_training_rows": 8400,
+  "n_validation_rows": 1800,
+  "n_test_rows": 1800,
+  "anomaly_rate": 0.0749,
+  "condition_counts": {
+    "normal": 7927,
+    "reduced_generation": 2709,
+    "fault": 899,
+    "night_idle": 465
+  },
+  "time_range": {
+    "start": "2025-01-01 00:00:00",
+    "end": "2025-02-11 15:55:00"
+  },
+  "random_state": 42,
+  "split_strategy": "chronological_70_15_15",
+  "trained_at_unix": 1792293965,
+  "data_origin": "simulated",
+  "limitations": [
+    "Trained on the project dataset; real field accuracy is unknown.",
+    "Injected faults are cleanly separable, so the reported F1 overstates what a noisy field sensor stream would achieve.",
+    "Estimated currents come from the same simulation model as the targets, so the regression task is easier than a real one.",
+    "No battery state-of-charge, no cloud forecast and no tariff signal are modelled; the optimiser is a rule-based demonstration."
+  ]
+}

@@ -10,16 +10,11 @@ __pycache__/
 venv/
 .pytest_cache/
 
-# --- data / generated output ------------------------------------------------
-data/db/*.db
+# --- runtime sqlite sidecar files -------------------------------------------
+# The main data/db/microgrid.db IS committed (it is the shipped demo dataset).
+# The -wal/-shm files are runtime sidecars and must never be committed.
 data/db/*.db-wal
 data/db/*.db-shm
-data/dataset/*.csv
-ml/artifacts/*.joblib
-ml/artifacts/*.json
-reports/graphs/*.png
-reports/*.pdf
-backups/
 
 # --- os / editor ------------------------------------------------------------
 Thumbs.db
@@ -28,3 +23,10 @@ desktop.ini
 *.swp
 .idea/
 .vscode/
+
+# NOTE: the following are intentionally COMMITTED so that a fresh clone is a
+# fully working copy with no training step required:
+#   ml/artifacts/*.joblib   - the trained generation/condition/anomaly models
+#   ml/artifacts/*.json     - metrics.json, model_meta.json, dataset_schema.json
+#   data/dataset/*.csv       - the seeded simulated training dataset
+#   reports/graphs/*.png     - the 14 analysis figures shown on the dashboard

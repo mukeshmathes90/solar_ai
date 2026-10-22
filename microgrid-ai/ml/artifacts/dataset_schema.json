@@ -1,0 +1,199 @@
+{
+  "n_rows": 12000,
+  "n_columns": 27,
+  "columns": {
+    "timestamp": {
+      "dtype": "datetime64[ns]",
+      "n_unique": 12000
+    },
+    "data_origin": {
+      "dtype": "object",
+      "n_unique": 1
+    },
+    "device_id": {
+      "dtype": "object",
+      "n_unique": 1
+    },
+    "solar_voltage": {
+      "dtype": "float64",
+      "min": 0.0,
+      "max": 5.79,
+      "mean": 1.5797665,
+      "nulls": 0
+    },
+    "solar_irradiance_wm2": {
+      "dtype": "float64",
+      "min": 0.0,
+      "max": 1050.0,
+      "mean": 178.94360833333332,
+      "nulls": 0
+    },
+    "wind_voltage": {
+      "dtype": "float64",
+      "min": 0.0,
+      "max": 10.222,
+      "mean": 1.4456510000000002,
+      "nulls": 0
+    },
+    "turbine_rpm": {
+      "dtype": "float64",
+      "min": 0.0,
+      "max": 1260.0,
+      "mean": 384.29116666666664,
+      "nulls": 0
+    },
+    "temperature_c": {
+      "dtype": "float64",
+      "min": -25.0,
+      "max": 120.0,
+      "mean": 25.626284166666665,
+      "nulls": 0
+    },
+    "humidity_percent": {
+      "dtype": "float64",
+      "min": 27.51,
+      "max": 100.0,
+      "mean": 61.43138666666667,
+      "nulls": 0
+    },
+    "light_level_lux": {
+      "dtype": "float64",
+      "min": 12.0,
+      "max": 121552.0,
+      "mean": 17612.310916666665,
+      "nulls": 0
+    },
+    "wind_speed_ms": {
+      "dtype": "float64",
+      "min": 0.0,
+      "max": 14.53,
+      "mean": 4.4831216666666664,
+      "nulls": 0
+    },
+    "soiling_factor": {
+      "dtype": "float64",
+      "min": 0.2917,
+      "max": 1.0,
+      "mean": 0.8536709000000001,
+      "nulls": 0
+    },
+    "turbine_efficiency": {
+      "dtype": "float64",
+      "min": 0.3054,
+      "max": 1.0,
+      "mean": 0.931721425,
+      "nulls": 0
+    },
+    "clear_sky_power_w": {
+      "dtype": "float64",
+      "min": 0.0,
+      "max": 2.7315,
+      "mean": 0.5264914666666667,
+      "nulls": 0
+    },
+    "solar_current_est_a": {
+      "dtype": "float64",
+      "min": 0.0,
+      "max": 0.3766,
+      "mean": 0.05497489166666666,
+      "nulls": 0
+    },
+    "wind_current_est_a": {
+      "dtype": "float64",
+      "min": 0.0,
+      "max": 0.2998,
+      "mean": 0.08236671666666666,
+      "nulls": 0
+    },
+    "solar_power_est_w": {
+      "dtype": "float64",
+      "min": 0.0,
+      "max": 2.1552,
+      "mean": 0.22690378333333336,
+      "nulls": 0
+    },
+    "wind_power_est_w": {
+      "dtype": "float64",
+      "min": 0.0,
+      "max": 2.8465,
+      "mean": 0.22305688333333334,
+      "nulls": 0
+    },
+    "total_est_power_w": {
+      "dtype": "float64",
+      "min": 0.0,
+      "max": 2.8465,
+      "mean": 0.44996141666666667,
+      "nulls": 0
+    },
+    "operating_condition": {
+      "dtype": "object",
+      "n_unique": 4
+    },
+    "anomaly_label": {
+      "dtype": "int64",
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.07491666666666667,
+      "nulls": 0
+    },
+    "anomaly_type": {
+      "dtype": "object",
+      "n_unique": 6
+    },
+    "hour": {
+      "dtype": "float64",
+      "min": 0.0,
+      "max": 23.916666666666668,
+      "mean": 11.894333333333334,
+      "nulls": 0
+    },
+    "day_of_year": {
+      "dtype": "int32",
+      "min": 1.0,
+      "max": 42.0,
+      "mean": 21.336,
+      "nulls": 0
+    },
+    "solar_v_deficit": {
+      "dtype": "float64",
+      "min": -1.8683,
+      "max": 4.4391,
+      "mean": 0.04393266666666667,
+      "nulls": 0
+    },
+    "wind_v_per_rpm": {
+      "dtype": "float64",
+      "min": 0.0,
+      "max": 0.9,
+      "mean": 0.0040726458333333335,
+      "nulls": 0
+    },
+    "lux_per_irradiance": {
+      "dtype": "float64",
+      "min": 12.0,
+      "max": 118.7031,
+      "mean": 54.51182356666667,
+      "nulls": 0
+    }
+  },
+  "feature_columns": [
+    "hour",
+    "day_of_year",
+    "solar_irradiance_wm2",
+    "solar_voltage",
+    "wind_voltage",
+    "turbine_rpm",
+    "temperature_c",
+    "humidity_percent",
+    "light_level_lux",
+    "solar_v_deficit",
+    "wind_v_per_rpm",
+    "lux_per_irradiance"
+  ],
+  "targets": {
+    "regression": "total_est_power_w",
+    "classification": "operating_condition",
+    "anomaly": "anomaly_label"
+  }
+}
