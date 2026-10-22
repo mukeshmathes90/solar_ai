@@ -1,0 +1,30 @@
+# --- secrets (never commit) -------------------------------------------------
+firmware/microgrid_node/credentials.h
+.env
+
+# --- python -----------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+
+# --- data / generated output ------------------------------------------------
+data/db/*.db
+data/db/*.db-wal
+data/db/*.db-shm
+data/dataset/*.csv
+ml/artifacts/*.joblib
+ml/artifacts/*.json
+reports/graphs/*.png
+reports/*.pdf
+backups/
+
+# --- os / editor ------------------------------------------------------------
+Thumbs.db
+desktop.ini
+.DS_Store
+*.swp
+.idea/
+.vscode/

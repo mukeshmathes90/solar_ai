@@ -1,0 +1,24 @@
+# Runtime dependencies for the microgrid monitoring platform.
+# Verified against CPython 3.8 on Windows.
+#
+#   pip install -r requirements.txt
+#
+# Flask serves the API and the dashboard from one process; numpy/pandas/
+# scikit-learn/joblib run the machine-learning pipeline; matplotlib/seaborn
+# render the report figures. pytest runs the test suite (see tests/).
+
+Flask==2.3.3
+Flask-Cors==5.0.0
+Werkzeug==2.3.7
+Jinja2==3.1.6
+numpy==1.24.4
+pandas==2.0.3
+scikit-learn==1.3.2
+scipy==1.10.1
+joblib==1.4.2
+matplotlib==3.7.2
+seaborn==0.12.2
+Pillow==10.4.0
+
+# Testing
+pytest==8.3.4

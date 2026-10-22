@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="AI-enabled predictive monitoring and energy optimisation of a renewable microgrid." />
+  <title>Microgrid AI &middot; Predictive Monitoring &amp; Energy Optimisation</title>
+  <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/static/css/style.css?v=20261018" />
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="layout">
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="30" height="30">
+          <circle cx="16" cy="16" r="6" fill="none" stroke="#2ECC71" stroke-width="2.2"/>
+          <g stroke="#2ECC71" stroke-width="2.2" stroke-linecap="round">
+            <line x1="16" y1="2"  x2="16" y2="6"/>
+            <line x1="16" y1="26" x2="16" y2="30"/>
+            <line x1="2"  y1="16" x2="6"  y2="16"/>
+            <line x1="26" y1="16" x2="30" y2="16"/>
+            <line x1="6"  y1="6"  x2="9"  y2="9"/>
+            <line x1="23" y1="23" x2="26" y2="26"/>
+            <line x1="26" y1="6"  x2="23" y2="9"/>
+            <line x1="9"  y1="23" x2="6"  y2="26"/>
+          </g>
+          <path d="M22 20c2.6 0 4.6-1.9 4.6-4.3 0-2.3-1.8-4.1-4.1-4.3-0.6-3-3.2-5.2-6.3-5.2-2.6 0-4.8 1.5-5.8 3.6" fill="none" stroke="#F5A623" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <div class="brand-text">
+        <strong>Microgrid AI</strong>
+        <span>Solar &amp; Wind Node</span>
+      </div>
+    </div>
+
+    <nav class="nav" id="nav" aria-label="Dashboard sections">
+      <button class="nav-item is-active" data-section="overview" type="button">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 20 20"><rect x="2" y="2" width="7" height="7" rx="1.5"/><rect x="11" y="2" width="7" height="7" rx="1.5"/><rect x="2" y="11" width="7" height="7" rx="1.5"/><rect x="11" y="11" width="7" height="7" rx="1.5"/></svg>
+        </span>
+        <span class="nav-label">Overview</span>
+      </button>
+      <button class="nav-item" data-section="live" type="button">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 20 20"><path d="M2 12h3l2.2-6 3.1 11 2.5-8 1.7 3h3.5" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="nav-label">Live Monitoring</span>
+      </button>
+      <button class="nav-item" data-section="analytics" type="button">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 20 20"><path d="M10 1.6a8.4 8.4 0 0 0-3.8 15.9v-1.9A6.6 6.6 0 1 1 16.6 10H18A8.4 8.4 0 0 0 10 1.6Z"/><circle cx="10" cy="10" r="2.6"/></svg>
+        </span>
+        <span class="nav-label">AI Analytics</span>
+      </button>
+      <button class="nav-item" data-section="optimization" type="button">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 20 20"><path d="M11.4 1.5 3.5 11.2h4.3L7.4 18.5 16 8.6h-4.5l-.1-7.1Z"/></svg>
+        </span>
+        <span class="nav-label">Energy Optimisation</span>
+      </button>
+      <button class="nav-item" data-section="history" type="button">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 20 20"><path d="M10 3a7 7 0 1 0 7 7" fill="none" stroke-width="1.8" stroke-linecap="round"/><path d="M10 6v4.3l3 1.8" fill="none" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </span>
+        <span class="nav-label">Historical Data</span>
+      </button>
+      <button class="nav-item" data-section="model" type="button">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 20 20"><circle cx="10" cy="4" r="2.2"/><circle cx="4" cy="15" r="2.2"/><circle cx="16" cy="15" r="2.2"/><path d="M10 6.2 5 13m5-6.8 5 6.8M6.2 15h7.6" fill="none" stroke-width="1.6"/></svg>
+        </span>
+        <span class="nav-label">Model &amp; System</span>
+      </button>
+      <button class="nav-item" data-section="settings" type="button">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="2.6" fill="none" stroke-width="1.8"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M15.8 4.2l-1.7 1.7M5.9 14.1l-1.7 1.7" fill="none" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </span>
+        <span class="nav-label">Settings</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-foot">
+      <div class="badge badge-origin" id="sidebar-origin">waiting for data</div>
+      <div class="sidebar-note" id="sidebar-note">Connecting to backend&hellip;</div>
+    </div>
+  </aside>
+
+  <!-- ================= MAIN ================= -->
+  <div class="main" id="main">
+
+    <header class="topbar">
+      <button class="icon-btn menu-toggle" id="menu-toggle" type="button"
+              aria-label="Toggle navigation" aria-expanded="false">
+        <svg viewBox="0 0 20 20"><path d="M3 5h14M3 10h14M3 15h14" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg>
+      </button>
+      <div class="topbar-title">
+        <h1 id="page-title">Project Overview</h1>
+        <p id="page-subtitle">Real-time status of the hybrid solar &amp; wind microgrid node</p>
+      </div>
+      <div class="topbar-actions">
+        <div class="mode-switch" id="mode-switch" role="group" aria-label="Data mode">
+          <button class="mode-opt is-active" type="button" data-mode="test" id="mode-test">Test</button>
+          <button class="mode-opt" type="button" data-mode="live" id="mode-live">Live</button>
+        </div>
+        <span class="pill" id="pill-device" title="Device connection state">
+          <span class="dot dot-idle" id="dot-device"></span>Device
+        </span>
+        <span class="pill" id="pill-model" title="Machine-learning model state">
+          <span class="dot dot-idle" id="dot-model"></span>Model
+        </span>
+        <span class="pill pill-quiet" id="pill-updated">never updated</span>
+        <button class="btn btn-ghost" id="btn-refresh" type="button">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 10a6.5 6.5 0 1 1-1.9-4.6" fill="none" stroke-width="2" stroke-linecap="round"/><path d="M16.8 2.6v3.6h-3.6" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Refresh
+        </button>
+      </div>
+    </header>
+
+    <div class="banner banner-warn" id="banner-offline" hidden></div>
+    <div class="banner banner-error" id="banner-error" hidden>
+      <strong>Backend error.</strong><span id="banner-error-text"></span>
+    </div>
+
+    <div class="content">
+
+      <!-- ============ A. OVERVIEW ============ -->
+      <section class="section is-active" id="section-overview">
+        <div class="grid grid-kpi" id="overview-kpis"></div>
+
+        <div class="grid grid-2">
+          <article class="card">
+            <header class="card-head">
+              <h2>Latest node reading</h2>
+              <span class="chip" id="ov-reading-source">-</span>
+            </header>
+            <div class="detail-list" id="ov-reading-detail"></div>
+          </article>
+          <article class="card">
+            <header class="card-head">
+              <h2>Latest model verdict</h2>
+              <span class="chip chip-accent" id="ov-prediction-source">model output</span>
+            </header>
+            <div class="detail-list" id="ov-prediction-detail"></div>
+          </article>
+        </div>
+
+        <div class="grid grid-2">
+          <article class="card">
+            <header class="card-head">
+              <h2>Generation mix</h2>
+              <span class="chip chip-quiet">recent window</span>
+            </header>
+            <div class="chart-box chart-box-sm"><canvas id="chart-overview-mix"></canvas></div>
+            <div class="legend" id="ov-mix-legend"></div>
+          </article>
+          <article class="card">
+            <header class="card-head">
+              <h2>Recent generation trend</h2>
+              <span class="chip chip-quiet">Live / Test</span>
+            </header>
+            <div class="chart-box"><canvas id="chart-overview-trend"></canvas></div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ============ B. LIVE MONITORING ============ -->
+      <section class="section" id="section-live">
+        <div class="section-head">
+          <div>
+            <h2>Live Monitoring</h2>
+            <p>Auto-refreshing view of every sensor channel reported by the node.</p>
+          </div>
+          <div class="section-tools">
+            <label class="field field-inline">
+              <span>Refresh every</span>
+              <select id="live-interval">
+                <option value="2">2 s</option>
+                <option value="5" selected>5 s</option>
+                <option value="10">10 s</option>
+                <option value="30">30 s</option>
+                <option value="60">60 s</option>
+              </select>
+            </label>
+            <button class="btn btn-ghost" id="btn-live-pause" type="button">Pause</button>
+          </div>
+        </div>
+
+        <div class="status-strip" id="live-status-strip"></div>
+        <div class="grid grid-kpi" id="live-kpis"></div>
+
+        <div class="grid grid-2">
+          <article class="card">
+            <header class="card-head"><h2>Solar voltage &amp; estimated power</h2></header>
+            <div class="chart-box"><canvas id="chart-live-solar"></canvas></div>
+          </article>
+          <article class="card">
+            <header class="card-head"><h2>Wind voltage &amp; turbine speed</h2></header>
+            <div class="chart-box"><canvas id="chart-live-wind"></canvas></div>
+          </article>
+          <article class="card">
+            <header class="card-head"><h2>Temperature &amp; humidity</h2></header>
+            <div class="chart-box"><canvas id="chart-live-climate"></canvas></div>
+          </article>
+          <article class="card">
+            <header class="card-head"><h2>Illuminance</h2></header>
+            <div class="chart-box"><canvas id="chart-live-light"></canvas></div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ============ C. AI ANALYTICS ============ -->
+      <section class="section" id="section-analytics">
+        <div class="section-head">
+          <div>
+            <h2>AI Analytics</h2>
+            <p>Predictions, anomaly detection and model quality.</p>
+          </div>
+          <button class="btn btn-accent" id="btn-run-prediction" type="button">
+            Re-run prediction on latest reading
+          </button>
+        </div>
+
+        <div class="notice notice-info">
+          <strong>Evaluation dataset.</strong>
+          These models were trained on the project dataset described in the
+          report. Reported accuracy describes the software pipeline &mdash;
+          re-train on logged field readings before drawing operational
+          conclusions.
+        </div>
+
+        <div class="grid grid-kpi" id="analytics-kpis"></div>
+
+        <div class="grid grid-2">
+          <article class="card">
+            <header class="card-head">
+              <h2>Actual vs predicted generation</h2>
+              <span class="chip chip-accent">model output</span>
+            </header>
+            <div class="chart-box"><canvas id="chart-analytics-trend"></canvas></div>
+          </article>
+          <article class="card">
+            <header class="card-head">
+              <h2>Anomaly probability</h2>
+              <span class="chip" id="analytics-anomaly-chip">-</span>
+            </header>
+            <div class="gauge-wrap">
+              <div class="gauge" id="gauge-anomaly">
+                <svg viewBox="0 0 120 120" aria-hidden="true">
+                  <circle class="gauge-track" cx="60" cy="60" r="52"></circle>
+                  <circle class="gauge-fill" id="gauge-fill" cx="60" cy="60" r="52"></circle>
+                </svg>
+                <div class="gauge-value"><span id="gauge-value-text">-</span><small>probability</small></div>
+              </div>
+              <ul class="mini-list" id="analytics-anomaly-notes"></ul>
+            </div>
+            <div class="threshold-row">
+              <label class="field field-inline">
+                <span>Flag threshold</span>
+                <input type="number" id="analytics-threshold" min="0.01" max="0.99" step="0.01" value="0.5" />
+              </label>
+              <button class="btn btn-ghost" id="btn-apply-threshold" type="button">Apply</button>
+            </div>
+          </article>
+          <article class="card">
+            <header class="card-head"><h2>Feature importance</h2></header>
+            <div class="chart-box"><canvas id="chart-analytics-importance"></canvas></div>
+          </article>
+          <article class="card">
+            <header class="card-head"><h2>Condition class scores</h2></header>
+            <div class="chart-box"><canvas id="chart-analytics-classes"></canvas></div>
+          </article>
+        </div>
+
+        <article class="card">
+          <header class="card-head">
+            <h2>Recent anomaly flags</h2>
+            <span class="chip chip-quiet" id="analytics-anomaly-count">0 flagged</span>
+          </header>
+          <div class="table-wrap">
+            <table class="table" id="table-anomalies">
+              <thead>
+                <tr>
+                  <th>Time</th><th>Device</th><th>Source</th>
+                  <th>Condition</th><th>Anomaly&nbsp;prob.</th><th>Flag</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="card" id="card-static-graphs">
+          <header class="card-head">
+            <h2>Generated analysis figures</h2>
+            <span class="chip chip-quiet">reports/graphs</span>
+          </header>
+          <div class="figure-grid" id="static-figures"></div>
+        </article>
+      </section>
+
+      <!-- ============ D. ENERGY OPTIMISATION ============ -->
+      <section class="section" id="section-optimization">
+        <div class="section-head">
+          <div>
+            <h2>Energy Optimisation</h2>
+            <p>A transparent, rule-based allocation of the power being generated right now.</p>
+          </div>
+          <span class="chip" id="optimization-status-chip">-</span>
+        </div>
+
+        <div class="notice notice-info">
+          <strong>Advisory only.</strong>
+          Allocation follows fixed thresholds, not a learned controller, and the
+          relay output stays OFF until automatic switching is explicitly enabled
+          after a verified low-voltage load test.
+        </div>
+
+        <div class="grid grid-2">
+          <article class="card">
+            <header class="card-head"><h2>Allocation breakdown</h2></header>
+            <div class="chart-box chart-box-sm"><canvas id="chart-optimization-alloc"></canvas></div>
+            <div class="legend" id="optimization-legend"></div>
+          </article>
+          <article class="card">
+            <header class="card-head"><h2>Source contribution</h2></header>
+            <div class="chart-box chart-box-sm"><canvas id="chart-optimization-source"></canvas></div>
+            <div class="legend" id="optimization-source-legend"></div>
+          </article>
+        </div>
+
+        <div class="grid grid-2">
+          <article class="card">
+            <header class="card-head"><h2>Recommendations</h2></header>
+            <ul class="rec-list" id="optimization-recommendations"></ul>
+          </article>
+          <article class="card">
+            <header class="card-head"><h2>Relay &amp; safety</h2></header>
+            <div class="detail-list" id="optimization-relay"></div>
+            <h3 class="mini-head">Assumptions</h3>
+            <ul class="mini-list" id="optimization-assumptions"></ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- ============ E. HISTORICAL DATA ============ -->
+      <section class="section" id="section-history">
+        <div class="section-head">
+          <div>
+            <h2>Historical Data</h2>
+            <p>Filter, chart and export everything stored in the database.</p>
+          </div>
+          <div class="section-tools">
+            <button class="btn btn-ghost" id="btn-history-load" type="button">Load</button>
+            <a class="btn btn-accent" id="btn-history-export" href="/api/export/readings.csv" download>
+              Export CSV
+            </a>
+          </div>
+        </div>
+
+        <div class="filter-bar">
+          <label class="field">
+            <span>Window</span>
+            <select id="history-hours">
+              <option value="1">Last 1 hour</option>
+              <option value="6">Last 6 hours</option>
+              <option value="24" selected>Last 24 hours</option>
+              <option value="72">Last 3 days</option>
+              <option value="168">Last 7 days</option>
+              <option value="all">Everything</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Source</span>
+            <select id="history-origin">
+              <option value="">All sources</option>
+              <option value="hardware">Live only</option>
+              <option value="simulated">Test only</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Rows</span>
+            <select id="history-limit">
+              <option value="200">200</option>
+              <option value="500" selected>500</option>
+              <option value="1000">1000</option>
+              <option value="5000">5000</option>
+            </select>
+          </label>
+          <label class="field field-grow">
+            <span>Device</span>
+            <select id="history-device"><option value="">All devices</option></select>
+          </label>
+        </div>
+
+        <div class="grid grid-2">
+          <article class="card">
+            <header class="card-head"><h2>Total generation</h2></header>
+            <div class="chart-box"><canvas id="chart-history-generation"></canvas></div>
+          </article>
+          <article class="card">
+            <header class="card-head"><h2>Voltages</h2></header>
+            <div class="chart-box"><canvas id="chart-history-voltage"></canvas></div>
+          </article>
+          <article class="card">
+            <header class="card-head"><h2>Temperature &amp; humidity</h2></header>
+            <div class="chart-box"><canvas id="chart-history-climate"></canvas></div>
+          </article>
+          <article class="card">
+            <header class="card-head"><h2>Turbine speed</h2></header>
+            <div class="chart-box"><canvas id="chart-history-rpm"></canvas></div>
+          </article>
+        </div>
+
+        <article class="card">
+          <header class="card-head">
+            <h2>Stored readings</h2>
+            <span class="chip chip-quiet" id="history-count">0 rows</span>
+          </header>
+          <div class="table-wrap table-wrap-tall">
+            <table class="table" id="table-history">
+              <thead>
+                <tr>
+                  <th>Timestamp</th><th>Device</th><th>Source</th>
+                  <th>Solar&nbsp;V</th><th>Solar&nbsp;A</th><th>Wind&nbsp;V</th><th>Wind&nbsp;A</th>
+                  <th>RPM</th><th>Temp&nbsp;&deg;C</th><th>RH&nbsp;%</th><th>Light</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <footer class="pager">
+            <button class="btn btn-ghost" id="page-prev" type="button">Previous</button>
+            <span id="page-info">page 1</span>
+            <button class="btn btn-ghost" id="page-next" type="button">Next</button>
+          </footer>
+        </article>
+      </section>
+
+      <!-- ============ F. MODEL & SYSTEM STATUS ============ -->
+      <section class="section" id="section-model">
+        <div class="section-head">
+          <div>
+            <h2>Model &amp; System Status</h2>
+            <p>What the models were trained on, how well they scored, and the health of the platform.</p>
+          </div>
+          <button class="btn btn-ghost" id="btn-model-reload" type="button">Check for new model</button>
+        </div>
+
+        <div class="grid grid-kpi" id="model-kpis"></div>
+
+        <div class="grid grid-2">
+          <article class="card">
+            <header class="card-head"><h2>Training summary</h2></header>
+            <div class="detail-list" id="model-training-detail"></div>
+          </article>
+          <article class="card">
+            <header class="card-head"><h2>Held-out test scores</h2></header>
+            <div class="detail-list" id="model-metrics-detail"></div>
+          </article>
+          <article class="card">
+            <header class="card-head"><h2>Anomaly confusion matrix</h2></header>
+            <div class="chart-box chart-box-sm"><canvas id="chart-model-confusion"></canvas></div>
+          </article>
+          <article class="card">
+            <header class="card-head"><h2>System health</h2></header>
+            <div class="detail-list" id="model-system-detail"></div>
+          </article>
+        </div>
+
+        <div class="grid grid-2">
+          <article class="card">
+            <header class="card-head">
+              <h2>Connected devices</h2>
+              <span class="chip chip-quiet" id="model-device-count">0</span>
+            </header>
+            <div class="table-wrap">
+              <table class="table" id="table-devices">
+                <thead>
+                  <tr>
+                    <th>Device</th><th>Status</th><th>Last seen</th>
+                    <th>IP</th><th>Sensor status</th><th>Readings</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </article>
+          <article class="card">
+            <header class="card-head"><h2>Limitations</h2></header>
+            <ul class="mini-list" id="model-limitations"></ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- ============ G. SETTINGS ============ -->
+      <section class="section" id="section-settings">
+        <div class="section-head">
+          <div>
+            <h2>Settings</h2>
+            <p>Runtime configuration stored in the local database.</p>
+          </div>
+          <button class="btn btn-accent" id="btn-save-settings" type="button">Save settings</button>
+        </div>
+
+        <div class="notice notice-info">
+          <strong>Security note.</strong>
+          The device token is never displayed in full, and Wi-Fi credentials are
+          compile-time settings in <code>firmware/microgrid_node/credentials.h</code>
+          on the device &mdash; they are never sent to or stored by this dashboard.
+        </div>
+
+        <form class="grid grid-2" id="settings-form" autocomplete="off">
+          <article class="card">
+            <header class="card-head"><h2>Sampling &amp; refresh</h2></header>
+            <label class="field">
+              <span>Device sampling interval (seconds)</span>
+              <input type="number" name="sampling_interval_s" min="1" max="3600" />
+            </label>
+            <label class="field">
+              <span>Dashboard refresh (seconds)</span>
+              <input type="number" name="dashboard_refresh_s" min="1" max="3600" />
+            </label>
+            <label class="field">
+              <span>History auto-refresh (seconds)</span>
+              <input type="number" name="history_refresh_s" min="5" max="3600" />
+            </label>
+            <label class="field">
+              <span>Default history window (hours)</span>
+              <input type="number" name="history_window_h" min="1" max="720" />
+            </label>
+          </article>
+
+          <article class="card">
+            <header class="card-head"><h2>Detection &amp; devices</h2></header>
+            <label class="field">
+              <span>Anomaly flag threshold (0&ndash;1)</span>
+              <input type="number" name="anomaly_threshold" min="0.01" max="0.99" step="0.01" />
+            </label>
+            <label class="field">
+              <span>Mark device offline after (seconds)</span>
+              <input type="number" name="device_offline_after_s" min="10" max="3600" />
+            </label>
+            <label class="field">
+              <span>Default device id</span>
+              <input type="text" name="default_device_id" maxlength="64" />
+            </label>
+            <label class="field">
+              <span>Device token</span>
+              <input type="text" name="device_token" placeholder="unchanged" />
+              <small>Leave blank to keep the current token. Shown as *** when set.</small>
+            </label>
+          </article>
+
+          <article class="card">
+            <header class="card-head"><h2>Optimisation thresholds</h2></header>
+            <label class="field">
+              <span>Essential load demand (W)</span>
+              <input type="number" name="optimize_load_low_w" min="0" max="500" step="0.1" />
+            </label>
+            <label class="field">
+              <span>Deferrable load demand (W)</span>
+              <input type="number" name="optimize_load_high_w" min="0" max="500" step="0.1" />
+            </label>
+            <label class="field">
+              <span>Reserve to hold (W)</span>
+              <input type="number" name="optimize_reserve_w" min="0" max="500" step="0.1" />
+            </label>
+          </article>
+
+          <article class="card">
+            <header class="card-head"><h2>Mode &amp; integration</h2></header>
+            <label class="field field-check">
+              <input type="checkbox" name="demo_mode" />
+              <span>Test mode &mdash; replay sample telemetry when no hardware is sending readings</span>
+            </label>
+            <label class="field field-check">
+              <input type="checkbox" name="relay_control_enabled" />
+              <span>Enable automatic relay switching <strong>(only after a verified low-voltage load test)</strong></span>
+            </label>
+            <label class="field">
+              <span>Backend URL shown to devices</span>
+              <input type="text" name="backend_url" placeholder="http://192.168.43.10:5000" />
+              <small>Run <code>ipconfig</code> on this PC and use the hotspot adapter's IPv4 address.</small>
+            </label>
+          </article>
+        </form>
+      </section>
+
+    </div><!-- /content -->
+
+    <footer class="foot">
+      <span>Microgrid AI &middot; AI-enabled predictive monitoring</span>
+      <span id="foot-status">idle</span>
+    </footer>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="/static/js/vendor/chart.umd.min.js"></script>
+<script src="/static/js/api.js?v=20261018"></script>
+<script src="/static/js/charts.js?v=20261018"></script>
+<script src="/static/js/app.js?v=20261018"></script>
+</body>
+</html>
